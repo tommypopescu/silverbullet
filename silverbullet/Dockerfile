@@ -1,11 +1,15 @@
-
 FROM ghcr.io/home-assistant/aarch64-base:latest
-RUN apk add --no-cache nodejs npm git go bash
+
+# Dependencies
+RUN apk add --no-cache nodejs npm git go jq bash
+
+# Build App
 WORKDIR /app
-RUN git clone https://github.com/silverbulletmd/silverbullet.git .
-RUN npm install && npm run build
-RUN go build -o silverbullet-server silverbullet.go
-COPY run.sh /run.sh
-RUN chmod a+x /run.sh
-EXPOSE 3000
-CMD ["/run.sh"]
+
+RUN git clone https://github.com/silverbulletmd/silverbullet . \
+    && npm install \
+    && npm run build \
+    && go build -o silverbullet-server silverbullet.go
+
+# Copy s6 services
+COPY rootfs/ /
