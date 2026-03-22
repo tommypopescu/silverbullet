@@ -1,17 +1,23 @@
-
-name: "SilverBullet"
+name: "SilverBullet Knowledge System"
 version: "1.0.0"
 slug: "silverbullet"
-description: "SilverBullet Knowledge System Add-on"
+description: "Self-hosted SilverBullet Add-on"
 arch:
   - aarch64
+  - armv7
+  - amd64
 startup: application
-webui: "http://[HOST]:[PORT:3000]"
+boot: auto
+host_network: false
+
 ports:
-  3000/tcp: 3000
+  3001/tcp: 3001
+
 map:
   - config:rw
+
 options:
   space_path: "/config/silverbullet-space"
+
 schema:
-  space_path: "str"
+  space_path: str
