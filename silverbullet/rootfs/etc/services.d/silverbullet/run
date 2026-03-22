@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+set -e
+
+# Load options
+SPACE_PATH=$(jq -r '.space_path' /data/options.json)
+
+mkdir -p "$SPACE_PATH"
+
+# Start SB server
+exec /app/silverbullet-server --port 3001 --space "$SPACE_PATH"
